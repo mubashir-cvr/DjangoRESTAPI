@@ -4,21 +4,24 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fiels):
+    def create_user(self, email, password=None, **extra_fields):
         """Create Save a User"""
-        user = self.model(email=email, **extra_fiels)
+        if not email:
+            raise ValueError('User must have a Email')
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        user.save(using=self.db)
+        user.save(using=self._db)
 
         return user
 
-    def create_super_user(self, email, password):
+    def create_superuser(self, email, password):
         """Create and Save a super User"""
         user = self.model(email=email)
         user.set_password(password)
         user.save(using=self.db)
         user.is_staff = True
         user.is_superuser = True
+        user.save(using=self._db)
 
         return user
 

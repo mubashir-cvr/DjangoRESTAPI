@@ -20,10 +20,14 @@ class ModelTests(TestCase):
         """Test Creating a new user with email"""
         email = "emaple@mail.com"
         password = "mb@123"
-        user = get_user_model().objects.create_super_user(
+        user = get_user_model().objects.create_superuser(
             email=email,
             password=password
         )
 
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+    
+    def test_create_user_not_anemail(self):
+        with self.assertRaises(ValueError):
+            get_user_model().objects.create_user(None,'password')
