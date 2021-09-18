@@ -27,7 +27,7 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
-    
+
     def test_create_user_not_anemail(self):
         with self.assertRaises(ValueError):
-            get_user_model().objects.create_user(None,'password')
+            get_user_model().objects.create_user(None, 'password')

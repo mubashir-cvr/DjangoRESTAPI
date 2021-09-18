@@ -3,11 +3,10 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 
-
 class AdminsiteTests(TestCase):
 
     def setUp(self):
-        self.client = Client()  
+        self.client = Client()
         self.admin_user = get_user_model().objects.create_superuser(
             email='adminuser@example.com',
             password='password123'
@@ -26,6 +25,6 @@ class AdminsiteTests(TestCase):
         self.assertContains(res, self.user.email)
 
     def test_user_change_page(self):
-        url = reverse('admin:core_user_change',args=[self.user.id])
+        url = reverse('admin:core_user_change', args=[self.user.id])
         res = self.client.get(url)
-        self.assertTrue(res.status_code,200)
+        self.assertTrue(res.status_code, 200)

@@ -6,17 +6,18 @@ from django.utils.translation import gettext as _
 
 class UserAdmin(BaseUserAdmin):
     ordering = ['id']
-    list_display = ['email','name']
+    list_display = ['email', 'name']
     fieldsets = (
-        (None, {'fields':('email','password')}),
-        (_('Personal Info'),{'fields':('name',)}),
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal Info'), {'fields': ('name',)}),
         (
             _('Permissions'),
             {
-                'fields':('is_active','is_staff','is_superuser')
+                'fields': ('is_active', 'is_staff', 'is_superuser')
             }
         ),
-        (_('Importand dates'),{'fields':('last_login',)})
+        (_('Importand dates'), {'fields': ('last_login',)})
     )
-    
+
+
 admin.site.register(models.User, UserAdmin)
