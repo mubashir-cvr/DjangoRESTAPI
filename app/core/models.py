@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.conf import settings
+from django.db.models.base import Model
+from django.db.models.fields import CharField
 
 
 class UserManager(BaseUserManager):
@@ -61,3 +63,13 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+
+class Recipe(models.Model):
+    """Reciepi Objects"""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = CharField(max_length=225)
+    time_minutes = models.IntegerField()
+    price = models.DecimalField(max_digits=5,decimal_places=2)
+    link = models.CharField(max_length=255,blank=True)
+    ingrediants = models.ManyToManyField('Ingredient')
+    tags = models.ManyToManyField('Tag')
